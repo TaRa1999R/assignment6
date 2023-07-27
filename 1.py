@@ -1,10 +1,19 @@
 import pyfiglet
 import random
+from colorama import Fore
+import time
 
 def show () :
     for line in game_bord :
         for cell in line :
-            print ( cell, end = " " )
+            if cell == "X":
+                print ( Fore.RED, cell, Fore.RESET, end = "" )
+            
+            elif cell == "O" :
+                print ( Fore.BLUE, cell, Fore.RESET, end = "" )
+
+            else :
+                print ( cell, end = " " )
         print ()
     
 def statment () :
@@ -33,7 +42,15 @@ def statment () :
     else :
         return ("nothing")
 
-
+def sec_to_min ( sec ) :
+    if sec < 60 :
+        min = 0
+        return min, sec
+    
+    elif sec >= 60 :
+        min = int ( sec / 60)
+        sec = sec - ( min * 60)
+        return min, sec
 
 title = pyfiglet.figlet_format ( " Tic Tac Toe ", font = "slant" )
 print ( title )
@@ -47,6 +64,7 @@ game_bord = [ [ "-", "-", "-"],
               [ "-", "-", "-"] ]
 
 show ()
+start = time.time ()
 
 if type == "two players" :
 
@@ -96,6 +114,11 @@ if type == "two players" :
         
         else :
             print (" 🚫🚫 This place doesn't exist 🚫🚫 ")
+    
+    end = time.time ()
+    min, sec = sec_to_min ( end - start )
+    print (Fore.MAGENTA, " This game last ", min, "minute(s) and ", sec, "second(s)"  , Fore.RESET)
+
 
 elif type == "solo" :
 
@@ -147,3 +170,7 @@ elif type == "solo" :
                     break
 
                 n = 0
+                
+    end = time.time ()
+    min, sec = sec_to_min ( end - start )
+    print (Fore.MAGENTA, " This game last ", min, "minute(s) and ", sec, "second(s)"  , Fore.RESET)
